@@ -1,5 +1,9 @@
 # React Render Middleware
 
+[![NPM Version][npm-image]][npm-url]
+[![NPM Downloads][downloads-image]][downloads-url]
+[![js-happiness-style](https://img.shields.io/badge/code%20style-happiness-brightgreen.svg)](https://github.com/JedWatson/happiness)
+
 This module provides an isomorphic render method for React components in an Express compatible application.
 
 ## Usage
@@ -61,3 +65,8 @@ As it turns out, this middleware will do the above by default, so if you don't p
 ## Example
 
 There is no working example in this repo, YET.  But you can see a very simplistic one here for use with nighthawk: https://github.com/wesleytodd/nighthawk/tree/master/example/react
+
+[npm-image]: https://img.shields.io/npm/v/react-express-middleware.svg
+[npm-url]: https://npmjs.org/package/react-express-middleware
+[downloads-image]: https://img.shields.io/npm/dm/react-express-middleware.svg
+[downloads-url]: https://npmjs.org/package/react-express-middleware
