@@ -9,7 +9,7 @@ This module provides an isomorphic render method for React components in an Expr
 ## Usage
 
 ```
-$ npm install --save react-express-middleware
+$ npm install --save react-express-middleware react react-dom
 ```
 
 `index.js`:
@@ -44,6 +44,8 @@ router.get('/', function (req, res) {
 	</body>
 </html>
 ```
+
+**Note:** The module does not specify a react dependency so you can depend on whatever react version you want.  We only require greater than React 0.14.0
 
 ## Passing data to your React components
 
