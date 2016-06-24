@@ -1,6 +1,6 @@
 {
   "name": "react-express-middleware",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Middleware to render a React component on both the server and client",
   "main": "index.js",
   "browser": {
