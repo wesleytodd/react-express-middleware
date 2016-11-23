@@ -8,9 +8,6 @@ export default function reactExpressMiddlewareGenerator (options = {}) {
 
 	return function reactExpressMiddleware (req, res, next) {
 		res.renderReactComponent = function renderReactComponent (Component, store, done) {
-			//
-			// Option 1: Store passed in, Component is a function
-			//
 			if (arguments.length > 1) {
 				// store defaults to res.locals
 				if (typeof store === 'function') {
@@ -27,20 +24,13 @@ export default function reactExpressMiddlewareGenerator (options = {}) {
 				}
 
 				// Create factory for component
-				Component = React.createFactory(Component);
-
-				// Render template with string
-				res.render(options.template, {
-					[options.key]: ReactDOMServer.renderToString(Component(store))
-				}, done);
-			} else {
-				//
-				// Option 2: Store is not passed in, Component is JSX (with required props passed)
-				//
-				res.render(options.template, {
-					[options.key]: ReactDOMServer.renderToString(Component)
-				}, done);
+				Component = React.createFactory(Component)(store);
 			}
+
+			// Render template with string
+			res.render(options.template, {
+				[options.key]: ReactDOMServer.renderToString(Component)
+			}, done);
 		};
 		next();
 	};
