@@ -40,8 +40,6 @@
     "react-dom": ">0.14.0"
   },
   "dependencies": {
-    "react": "^15.4.1",
-    "react-dom": "^15.4.1",
     "setprototypeof": "^1.0.1"
   }
 }
