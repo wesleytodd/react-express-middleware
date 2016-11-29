@@ -66,7 +66,9 @@ As it turns out, this middleware will do the above by default, so if you don't p
 
 ## Example
 
-There is no working example in this repo, YET.  But you can see a very simplistic one here for use with nighthawk: https://github.com/wesleytodd/nighthawk/tree/master/example/react
+Run the ([working example](example/)) by running `npm run example` from the root.
+
+You can also see a very simplistic example for use with nighthawk: https://github.com/wesleytodd/nighthawk/tree/master/example/react
 
 [npm-image]: https://img.shields.io/npm/v/react-express-middleware.svg
 [npm-url]: https://npmjs.org/package/react-express-middleware

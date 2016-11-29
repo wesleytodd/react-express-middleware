@@ -10,7 +10,8 @@
     "babel": "babel src --out-dir lib",
     "test": "npm run babel && happiness && mocha",
     "prepublish": "npm t",
-    "postpublish": "git push && git push --tags"
+    "postpublish": "git push && git push --tags",
+    "example": "npm run babel && cd ./example && npm run-script start"
   },
   "repository": {
     "type": "git",

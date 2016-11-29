@@ -1,5 +1,3 @@
-require('es6-promise').polyfill();
-
 var router = require('nighthawk')();
 var routes = require('./routes');
 
