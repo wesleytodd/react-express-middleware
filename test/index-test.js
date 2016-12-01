@@ -14,10 +14,10 @@ describe('React Express Middleware', function () {
 	});
 
 	it('should render passed Component (server)', function (done) {
-		// 1. Generate middleware with 'shallow' as serverRenderMethod
+		// 1. Generate middleware with 'shallow' as renderMethod
 		var renderMiddleware = serverRenderMiddleware({
 			template: 'foo.html',
-			serverRenderMethod: function (Component) {
+			renderMethod: function (Component) {
 				return shallow(Component).html();
 			}
 		});
@@ -38,9 +38,9 @@ describe('React Express Middleware', function () {
 	});
 
 	it('should render passed Component (client)', function (done) {
-		// 1. Generate middleware with 'shallow' as clientRenderMethod
+		// 1. Generate middleware with 'shallow' as renderMethod
 		var renderMiddleware = clientRenderMiddleware({
-			clientRenderMethod: function (Component, element) {
+			renderMethod: function (Component, element) {
 				assert.equal(element, window.document.body);
 
 				var wrapper = shallow(Component).html();

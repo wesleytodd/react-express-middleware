@@ -5,7 +5,7 @@ var setPrototypeOf = require('setprototypeof');
 export default function reactExpressMiddlewareGenerator (options = {}) {
 	options.template = options.template || 'index';
 	options.key = options.key || 'content';
-	options.serverRenderMethod = options.serverRenderMethod || ReactDOMServer.renderToString;
+	options.renderMethod = options.renderMethod || ReactDOMServer.renderToString;
 
 	return function reactExpressMiddleware (req, res, next) {
 		res.renderReactComponent = function renderReactComponent (Component, store, done) {
@@ -30,7 +30,7 @@ export default function reactExpressMiddlewareGenerator (options = {}) {
 
 			// Render template with string
 			res.render(options.template, {
-				[options.key]: options.serverRenderMethod(Component)
+				[options.key]: options.renderMethod(Component)
 			}, done);
 		};
 		next();
