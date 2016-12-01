@@ -12,6 +12,8 @@ This module provides an isomorphic render method for React components in an Expr
 $ npm install --save react-express-middleware react react-dom
 ```
 
+**Note:** The module does not specify a react dependency so you can depend on whatever react version you want.  We only require greater than React 0.14.0
+
 `index.html`
 ```html
 <html>
@@ -21,6 +23,10 @@ $ npm install --save react-express-middleware react react-dom
 	</body>
 </html>
 ```
+
+The variable 'content' is provided to your view engine. (Here is an example with EJS. The ([example](example/)) also uses EJS).
+
+There are two ways to use this middleware's render method. The first is to pass a single component, and the second is to pass nested elements or jsx.
 
 ### Option: Pass a single component
 
@@ -47,32 +53,27 @@ router.get('/', function (req, res) {
 });
 ```
 
-### Option: Pass jsx
+### Option: Pass nested elements
 
 `index.js`:
 
 ```javascript
 var router = require('express')();
 var reactExpressMiddleware = require('react-express-middleware');
-var PageWrapper = require('./page-wrapper.jsx');
-var Container = require('./container.jsx');
 
 router.use(reactExpressMiddleware({
 	element: 'app'
 }));
 router.get('/', function (req, res) {
 	var RenderComponent = (
-		<PageWrapper>
-			<Container name={res.locals.name} />
-			// <Container name="Lorelai" />
-		</PageWrapper>
+		<section className="container">
+	    <h1>Hi {res.locals.name}</h1>
+	  </section>
 	);
 
 	res.renderReactComponent(RenderComponent);
 });
 ```
-
-**Note:** The module does not specify a react dependency so you can depend on whatever react version you want.  We only require greater than React 0.14.0
 
 ## Passing data to your React components
 
@@ -99,30 +100,24 @@ If you pass jsx, you gain flexibility, but lose the 'automagical' convenience de
 // *
 // Generating middleware with config options
 // *
+
+// defaults shown
 router.use(reactExpressMiddleware({
-	 // [ Options and their defaults ]
-	 // -- Client
-		 // element: (defaults to ‘body’)
-		 // clientRenderMethod: (defaults to ReactDOM.render)
-	 // -- Server
-		 // template: (defaults to ‘index’)
-		 // key: (defaults to ‘context’)
-		 // serverRenderMethod: (defaults to ReactDOMServer.renderToString)
-})
+  element: document.body, // The element on the front-end to render into, can be a selector (string)
+  renderMethod: ReactDOM.render, // or ReactDOMServer.renderToString on the server
+  template: 'index',  // template passed to express' render
+  key: 'content' // the variable exposed to the express template engine with the rendered html string
+)}
 
 // *
 // Using ‘renderReactComponent’ method.
 // *
-res.renderReactComponent(Component, store, done)
-	// [ Using a single container ]
-	// -- Component: A single React component
-	// -- store: Optional data object. If none passed, defaults to res.locals
-	// -- done: Optional callback
 
-res.renderReactComponent(JSX, done)
-	// [ Passing jsx ]
-	// -- JSX, including props passed directly
-	// -- done: Optional callback
+// single element
+res.renderReactComponent(Component <ReactComponentConstructor>[, store <Object>[, done <Function>]])
+
+// nested elements
+res.renderReactComponent(Component <ReactComponent>[, done <Function>])
 ```
 
 ## Example
