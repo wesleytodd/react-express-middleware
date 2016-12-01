@@ -12,7 +12,7 @@ This module provides an isomorphic render method for React components in an Expr
 $ npm install --save react-express-middleware react react-dom
 ```
 
-**Note:** The module does not specify a react dependency so you can depend on whatever react version you want.  We only require greater than React 0.14.0
+**Note:** The module does not specify a react dependency so you can depend on whatever react version you want.  We only require greater than React 0.14.0.
 
 `index.html`
 ```html
@@ -37,8 +37,8 @@ There are two ways to use this middleware's render method. The first is to pass 
 // standalone router used in Express 5.0. This example uses express directly,
 // but there is also a compatible browser module which wraps `router` called
 // [nighthawk](https://www.npmjs.com/package/nighthawk) which can be a drop
-// in replacement on the client side.  Either of these require lines will
-// work with the middleware.  If you a clever, you can even make this example
+// in replacement on the client side. Either of these require lines will
+// work with the middleware. If you are clever, you can even make this example
 // function in both the browser and server via browserify :)
 // var router = require('nighthawk')();
 var router = require('express')();
@@ -92,7 +92,7 @@ router.get('/', function (req, res) {
 
 If passing a single container, this middleware will do the above by default, so if you don't pass a store you will automagically get all of the properties from `res.locals` passed as props to your component.
 
-If you pass jsx, you gain flexibility, but lose the 'automagical' convenience described above, and must pass props down directly.
+If you pass nested elements or jsx, you gain flexibility, but lose the 'automagical' convenience described above, and must pass props down directly.
 
 ### Options
 
