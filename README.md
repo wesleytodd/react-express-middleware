@@ -12,6 +12,18 @@ This module provides an isomorphic render method for React components in an Expr
 $ npm install --save react-express-middleware react react-dom
 ```
 
+`index.html`
+```html
+<html>
+	<head></head>
+	<body>
+		<div id="app"><%- content %></div>
+	</body>
+</html>
+```
+
+### Option: Pass a single component
+
 `index.js`:
 
 ```javascript
@@ -35,14 +47,29 @@ router.get('/', function (req, res) {
 });
 ```
 
-`index.html`
-```html
-<html>
-	<head></head>
-	<body>
-		<div id="app"><%- content %></div>
-	</body>
-</html>
+### Option: Pass jsx
+
+`index.js`:
+
+```javascript
+var router = require('express')();
+var reactExpressMiddleware = require('react-express-middleware');
+var PageWrapper = require('./page-wrapper.jsx');
+var Container = require('./container.jsx');
+
+router.use(reactExpressMiddleware({
+	element: 'app'
+}));
+router.get('/', function (req, res) {
+	var RenderComponent = (
+		<PageWrapper>
+			<Container name={res.locals.name} />
+			// <Container name="Lorelai" />
+		</PageWrapper>
+	);
+
+	res.renderReactComponent(RenderComponent);
+});
 ```
 
 **Note:** The module does not specify a react dependency so you can depend on whatever react version you want.  We only require greater than React 0.14.0
@@ -62,7 +89,41 @@ router.get('/', function (req, res) {
 });
 ```
 
-As it turns out, this middleware will do the above by default, so if you don't pass a store you will automagically get all of the properties from `res.locals` passed as props to your component.
+If passing a single container, this middleware will do the above by default, so if you don't pass a store you will automagically get all of the properties from `res.locals` passed as props to your component.
+
+If you pass jsx, you gain flexibility, but lose the 'automagical' convenience described above, and must pass props down directly.
+
+### Options
+
+```javascript
+// *
+// Generating middleware with config options
+// *
+router.use(reactExpressMiddleware({
+	 // [ Options and their defaults ]
+	 // -- Client
+		 // element: (defaults to ‘body’)
+		 // clientRenderMethod: (defaults to ReactDOM.render)
+	 // -- Server
+		 // template: (defaults to ‘index’)
+		 // key: (defaults to ‘context’)
+		 // serverRenderMethod: (defaults to ReactDOMServer.renderToString)
+})
+
+// *
+// Using ‘renderReactComponent’ method.
+// *
+res.renderReactComponent(Component, store, done)
+	// [ Using a single container ]
+	// -- Component: A single React component
+	// -- store: Optional data object. If none passed, defaults to res.locals
+	// -- done: Optional callback
+
+res.renderReactComponent(JSX, done)
+	// [ Passing jsx ]
+	// -- JSX, including props passed directly
+	// -- done: Optional callback
+```
 
 ## Example
 
