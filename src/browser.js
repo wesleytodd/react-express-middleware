@@ -3,6 +3,8 @@ var ReactDOM = require('react-dom');
 var setPrototypeOf = require('setprototypeof');
 
 export default function reactExpressMiddlewareGenerator (options = {}) {
+	options.clientRenderMethod = options.clientRenderMethod || ReactDOM.render;
+
 	// Get the element, defaults to body
 	options.element = (function (el) {
 		if (typeof el === 'string') {
@@ -39,7 +41,7 @@ export default function reactExpressMiddlewareGenerator (options = {}) {
 			}
 
 			// Render template with string
-			ReactDOM.render(Component, options.element, done);
+			options.clientRenderMethod(Component, options.element, done);
 		};
 		next();
 	};
