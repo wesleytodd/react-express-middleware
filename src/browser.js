@@ -8,7 +8,7 @@ export default function reactExpressMiddlewareGenerator (options = {}) {
 	// Get the element, defaults to body
 	options.element = (function (el) {
 		if (typeof el === 'string') {
-			return window.document.getElementById(el);
+			return window.document.querySelector(el);
 		}
 		if (typeof el === 'function') {
 			return el();
@@ -16,7 +16,7 @@ export default function reactExpressMiddlewareGenerator (options = {}) {
 		if (typeof el !== 'undefined') {
 			return el;
 		}
-		return window.document.body;
+		return window.document.getElementById('app');
 	})(options.element);
 
 	return function reactExpressMiddleware (req, res, next) {
