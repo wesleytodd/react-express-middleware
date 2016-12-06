@@ -33,11 +33,11 @@ describe('React Express Middleware', function () {
 		// 2. Run middleware (server)
 		renderMiddleware({}, res, function (err) {
 			assert.ok(!err);
+			done();
 		});
 
 		// 3. Call render
 		res.renderReactComponent(Container, {});
-		done();
 	});
 
 	it('should render passed Component (client)', function (done) {
@@ -58,10 +58,10 @@ describe('React Express Middleware', function () {
 		// 2. Run middleware (client)
 		renderMiddleware({}, res, function (err) {
 			assert.ok(!err);
+			done();
 		});
 
 		// 3. Call render
 		res.renderReactComponent(Container, {});
-		done();
 	});
 });
