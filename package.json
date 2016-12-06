@@ -8,7 +8,7 @@
   },
   "scripts": {
     "babel": "babel src --out-dir lib",
-    "test": "npm run babel && happiness && mocha test/.setup.js test/**/*-test.js",
+    "test": "npm run babel && happiness && mocha test/**/*-test.js",
     "happiness": "happiness",
     "prepublish": "npm t",
     "postpublish": "git push && git push --tags"
