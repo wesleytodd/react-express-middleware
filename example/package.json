@@ -1,0 +1,33 @@
+{
+  "name": "react-express-middleware-example",
+  "version": "1.0.0",
+  "description": "An example of using react-express-middleware for simplified isomorphic rendering",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run browserify && node index.js",
+    "browserify": "browserify browser.js -t [babelify] -o client-build.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-register": "^6.18.0",
+    "browserify-middleware": "^7.1.0",
+    "consolidate": "^0.14.5",
+    "ejs": "^2.5.2",
+    "es6-promise": "^4.0.5",
+    "express": "^4.14.0",
+    "express-babelify-middleware": "^0.2.1",
+    "nighthawk": "^1.4.0",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "serve-static": "^1.11.1",
+    "shared-context": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.1"
+  }
+}
