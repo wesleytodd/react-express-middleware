@@ -1,14 +1,23 @@
 /* global describe, it */
-require('babel-register')();
-
+var React = require('react');
 var assert = require('assert');
 var shallow = require('enzyme').shallow;
-
 var reactExpressMiddleware = require('../');
 var serverRenderMiddleware = require('../lib/index.js').default;
 var clientRenderMiddleware = require('../lib/browser.js').default;
 
-var Container = require('./components/Container.js');
+// A test component
+var Container = React.createClass({
+	displayName: 'Container',
+	render: function () {
+		return (
+			<div>
+				<h1>Basic headline.</h1>
+				<p>Basic paragraph.</p>
+			</div>
+		);
+	}
+});
 
 describe('React Express Middleware', function () {
 	it('should return a function', function () {
@@ -16,7 +25,7 @@ describe('React Express Middleware', function () {
 	});
 
 	it('should render passed Component (server)', function (done) {
-		// 1. Generate middleware with 'shallow' as renderMethod
+		// Generate middleware with 'shallow' as renderMethod
 		var renderMiddleware = serverRenderMiddleware({
 			template: 'foo.html',
 			renderMethod: function (Component) {
@@ -24,44 +33,50 @@ describe('React Express Middleware', function () {
 			}
 		});
 
+		// Create response
 		var res = {
-			render: function (path, data) {
+			render: function (path, data, doneRender) {
 				assert.equal(path, 'foo.html');
 				assert.equal(data.content, '<div><h1>Basic headline.</h1><p>Basic paragraph.</p></div>');
+				doneRender();
 			}
 		};
-		// 2. Run middleware (server)
-		renderMiddleware({}, res, function (err) {
-			assert.ok(!err);
-			done();
-		});
 
-		// 3. Call render
-		res.renderReactComponent(Container, {});
+		// Run middleware (server)
+		renderMiddleware({}, res, function (err) {
+			assert(!err);
+			assert(typeof res.renderReactComponent === 'function');
+
+			// Call render
+			res.renderReactComponent(Container, {}, done);
+		});
 	});
 
 	it('should render passed Component (client)', function (done) {
-		// 1. Generate middleware with 'shallow' as renderMethod
+		// Generate middleware with 'shallow' as renderMethod
 		var renderMiddleware = clientRenderMiddleware({
 			// this is a hack just to test
 			element: true,
-			renderMethod: function (Component, element) {
+			renderMethod: function (Component, element, done) {
 				assert.equal(element, true);
 
 				var wrapper = shallow(Component).html();
 				assert.equal(wrapper, '<div><h1>Basic headline.</h1><p>Basic paragraph.</p></div>');
+				setTimeout(done);
 				return wrapper;
 			}
 		});
 
+		// Create response
 		var res = {};
-		// 2. Run middleware (client)
-		renderMiddleware({}, res, function (err) {
-			assert.ok(!err);
-			done();
-		});
 
-		// 3. Call render
-		res.renderReactComponent(Container, {});
+		// Run middleware (client)
+		renderMiddleware({}, res, function (err) {
+			assert(!err);
+			assert(typeof res.renderReactComponent === 'function');
+
+			// Call render
+			res.renderReactComponent(Container, {}, done);
+		});
 	});
 });
