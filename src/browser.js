@@ -26,7 +26,7 @@ export default function reactExpressMiddlewareGenerator (options = {}) {
 				store = undefined;
 			}
 
-			if (!Component.$$typeof) {
+			if (!Component.hasOwnProperty('$$typeof')) {
 				// store defaults to res.locals
 				if (typeof store !== 'object') {
 					store = res.locals;
