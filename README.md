@@ -17,10 +17,10 @@ $ npm install --save react-express-middleware react react-dom
 `index.html`
 ```html
 <html>
-	<head></head>
-	<body>
-		<div id="app"><%- content %></div>
-	</body>
+  <head></head>
+  <body>
+    <div id="app"><%- content %></div>
+  </body>
 </html>
 ```
 
@@ -46,10 +46,10 @@ var reactExpressMiddleware = require('react-express-middleware');
 var ReactComponent = require('./component.jsx');
 
 router.use(reactExpressMiddleware({
-	element: 'app'
+  element: 'app'
 }));
 router.get('/', function (req, res) {
-	res.renderReactComponent(ReactComponent);
+  res.renderReactComponent(ReactComponent);
 });
 ```
 
@@ -62,16 +62,16 @@ var router = require('express')();
 var reactExpressMiddleware = require('react-express-middleware');
 
 router.use(reactExpressMiddleware({
-	element: 'app'
+  element: 'app'
 }));
 router.get('/', function (req, res) {
-	var RenderComponent = (
-		<section className="container">
-	    <h1>Hi {res.locals.name}</h1>
-	  </section>
-	);
+  var RenderComponent = (
+  <section className="container">
+      <h1>Hi {res.locals.name}</h1>
+    </section>
+  );
 
-	res.renderReactComponent(RenderComponent);
+  res.renderReactComponent(RenderComponent);
 });
 ```
 
@@ -81,12 +81,12 @@ If you are using React then you have probably heard of Flux and Redux.  This mod
 
 ```javascript
 router.get('/', function (req, res) {
-	// Store some data on res.locals which is provided
-	// by express and a pretty common practice
-	res.locals.foo = 'bar';
+  // Store some data on res.locals which is provided
+  // by express and a pretty common practice
+  res.locals.foo = 'bar';
 
-	// Pass res.locals as your store
-	res.renderReactComponent(ReactComponent, res.locals);
+  // Pass res.locals as your store
+  res.renderReactComponent(ReactComponent, res.locals);
 });
 ```
 
