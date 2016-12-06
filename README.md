@@ -66,7 +66,7 @@ As it turns out, this middleware will do the above by default, so if you don't p
 
 ## Example
 
-Run the ([working example](example/)) by running `npm run example` from the root.
+Run the working example by running `npm run example` from the root.
 
 You can also see a very simplistic example for use with nighthawk: https://github.com/wesleytodd/nighthawk/tree/master/example/react
 

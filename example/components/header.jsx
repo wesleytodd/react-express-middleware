@@ -1,16 +1,16 @@
 var React = require('react');
 
 module.exports = React.createClass({
-	displayName: 'PageWrapper',
+	displayName: 'Header',
 	render: function () {
 		return (
 			<div className="page-wrapper">
 				<header>
-					<h1>Header from {'<PageWrapper>'}</h1>
+					<h1>Header from {'<Header>'}</h1>
 				</header>
 				{this.props.children}
 				<footer>
-					<h2>Footer from {'<PageWrapper>'}</h2>
+					<h2>Footer from {'<Header>'}</h2>
 				</footer>
 			</div>
 		);

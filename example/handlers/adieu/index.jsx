@@ -1,12 +1,12 @@
 var React = require('react');
-var PageWrapper = require('../../components/page-wrapper.jsx');
+var Header = require('../../components/header.jsx');
 var Container = require('./container.jsx');
 
 module.exports = function adieuHandler (req, res) {
 	var RenderComponent = (
-		<PageWrapper>
+		<Header>
 			<Container name="Lorelai" />
-		</PageWrapper>
+		</Header>
 	);
 
 	res.renderReactComponent(RenderComponent);
