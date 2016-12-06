@@ -20,7 +20,7 @@ export default function reactExpressMiddlewareGenerator (options = {}) {
 					store = res.locals;
 
 					// Override prototype on res.locals because react
-					// uses res.locals.hasOwnProperty and Express specefically
+					// uses res.locals.hasOwnProperty and Express specifically
 					// uses Object.create(null) which means it doesn't have hasOwnProperty
 					setPrototypeOf(store, {});
 				}

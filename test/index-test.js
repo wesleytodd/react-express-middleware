@@ -31,7 +31,8 @@ describe('React Express Middleware', function () {
 			}
 		};
 		// 2. Run middleware (server)
-		renderMiddleware({}, res, function () {
+		renderMiddleware({}, res, function (err) {
+			assert.ok(!err);
 		});
 
 		// 3. Call render
@@ -55,7 +56,8 @@ describe('React Express Middleware', function () {
 
 		var res = {};
 		// 2. Run middleware (client)
-		renderMiddleware({}, res, function () {
+		renderMiddleware({}, res, function (err) {
+			assert.ok(!err);
 		});
 
 		// 3. Call render
