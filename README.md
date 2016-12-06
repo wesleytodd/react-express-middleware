@@ -95,7 +95,7 @@ If you pass nested elements or jsx, you gain flexibility, but lose the 'automagi
 ```javascript
 // defaults shown
 router.use(reactExpressMiddleware({
-  element: document.body, // The element on the front-end to render into, can be a selector (string)
+  element: document.getElementById('app'), // The element on the front-end to render into, can be a selector (string) or function
   renderMethod: ReactDOM.render, // or ReactDOMServer.renderToString on the server
   template: 'index',  // template passed to express' render
   key: 'content' // the variable exposed to the express template engine with the rendered html string
