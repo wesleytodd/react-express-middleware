@@ -6,11 +6,11 @@ module.exports = React.createClass({
 		return (
 			<div className="page-wrapper">
 				<header>
-					<h1>Header from {'<Header>'}</h1>
+					<h1>h1 from 'Header'</h1>
 				</header>
 				{this.props.children}
 				<footer>
-					<h2>Footer from {'<Header>'}</h2>
+					<h2>h2 from 'Header'</h2>
 				</footer>
 			</div>
 		);
