@@ -66,7 +66,7 @@ router.use(reactExpressMiddleware({
 }));
 router.get('/', function (req, res) {
   var RenderComponent = (
-  <section className="container">
+    <section className="container">
       <h1>Hi {res.locals.name}</h1>
     </section>
   );
