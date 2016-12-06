@@ -11,7 +11,8 @@
     "test": "npm run babel && happiness && mocha test/**/*-test.js",
     "happiness": "happiness",
     "prepublish": "npm t",
-    "postpublish": "git push && git push --tags"
+    "postpublish": "git push && git push --tags",
+    "example": "npm run babel && cd ./example && npm start"
   },
   "repository": {
     "type": "git",
