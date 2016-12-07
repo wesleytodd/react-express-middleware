@@ -19,12 +19,20 @@ export default function reactExpressMiddlewareGenerator (options = {}) {
 		return window.document.getElementById('app');
 	})(options.element);
 
+	// Allow for option overrides per-route
+	options.mergeOptions = typeof options.mergeOptions === 'function' ? options.mergeOptions : function (req, res) {
+		return Object.assign({}, options, res.locals.reactExpressMiddlewareOptions);
+	};
+
 	return function reactExpressMiddleware (req, res, next) {
 		res.renderReactComponent = function renderReactComponent (Component, store, done) {
 			if (typeof store === 'function') {
 				done = store;
 				store = undefined;
 			}
+
+			// Merge the route options
+			var opts = options.mergeOptions(req, res);
 
 			if (!Component.hasOwnProperty('$$typeof')) {
 				// store defaults to res.locals
@@ -41,7 +49,7 @@ export default function reactExpressMiddlewareGenerator (options = {}) {
 			}
 
 			// Render template with string
-			options.renderMethod(Component, options.element, done);
+			opts.renderMethod(Component, opts.element, done);
 		};
 		next();
 	};

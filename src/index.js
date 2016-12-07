@@ -7,12 +7,20 @@ export default function reactExpressMiddlewareGenerator (options = {}) {
 	options.key = options.key || 'content';
 	options.renderMethod = options.renderMethod || ReactDOMServer.renderToString;
 
+	// Allow for option overrides per-route
+	options.mergeOptions = typeof options.mergeOptions === 'function' ? options.mergeOptions : function (req, res) {
+		return Object.assign({}, options, res.locals.reactExpressMiddlewareOptions);
+	};
+
 	return function reactExpressMiddleware (req, res, next) {
 		res.renderReactComponent = function renderReactComponent (Component, store, done) {
 			if (typeof store === 'function') {
 				done = store;
 				store = undefined;
 			}
+
+			// Merge the route options
+			var opts = options.mergeOptions(req, res);
 
 			if (!Component.hasOwnProperty('$$typeof')) {
 				// store defaults to res.locals
@@ -29,8 +37,8 @@ export default function reactExpressMiddlewareGenerator (options = {}) {
 			}
 
 			// Render template with string
-			res.render(options.template, {
-				[options.key]: options.renderMethod(Component)
+			res.render(opts.template, {
+				[opts.key]: opts.renderMethod(Component)
 			}, done);
 		};
 		next();

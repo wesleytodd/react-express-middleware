@@ -35,6 +35,7 @@ describe('React Express Middleware', function () {
 
 		// Create response
 		var res = {
+			locals: {},
 			render: function (path, data, doneRender) {
 				assert.equal(path, 'foo.html');
 				assert.equal(data.content, '<div><h1>Basic headline.</h1><p>Basic paragraph.</p></div>');
@@ -68,7 +69,9 @@ describe('React Express Middleware', function () {
 		});
 
 		// Create response
-		var res = {};
+		var res = {
+			locals: {}
+		};
 
 		// Run middleware (client)
 		renderMiddleware({}, res, function (err) {

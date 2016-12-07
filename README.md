@@ -99,7 +99,16 @@ router.use(reactExpressMiddleware({
   renderMethod: ReactDOM.render, // or ReactDOMServer.renderToString on the server
   template: 'index',  // template passed to express' render
   key: 'content' // the variable exposed to the express template engine with the rendered html string
-)}
+)});
+
+// Overriding options per route
+router.get('/', function () {
+  res.locals.reactExpressMiddlewareOptions = {
+    template: 'other-template'
+  };
+  // will use the template `other-template.html`
+  res.renderReactComponent(Foo);
+});
 
 // Using 'renderReactComponent' method.
 
