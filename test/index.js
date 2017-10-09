@@ -6,8 +6,8 @@ var Adapter = require('enzyme-adapter-react-16');
 Enzyme.configure({ adapter: new Adapter() });
 var shallow = Enzyme.shallow;
 var reactExpressMiddleware = require('../');
-var serverRenderMiddleware = require('../lib/index.js').default;
-var clientRenderMiddleware = require('../lib/browser.js').default;
+var serverRenderMiddleware = require('../src/index.js');
+var clientRenderMiddleware = require('../src/browser.js');
 
 // A test component
 class Container extends React.Component {
