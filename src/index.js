@@ -2,7 +2,7 @@ var React = require('react');
 var ReactDOMServer = require('react-dom/server');
 var setPrototypeOf = require('setprototypeof');
 
-export default function reactExpressMiddlewareGenerator (options = {}) {
+module.exports = function reactExpressMiddlewareGenerator (options = {}) {
 	options.template = options.template || 'index';
 	options.key = options.key || 'content';
 	options.renderMethod = options.renderMethod || ReactDOMServer.renderToString;
@@ -43,4 +43,4 @@ export default function reactExpressMiddlewareGenerator (options = {}) {
 		};
 		next();
 	};
-}
+};
