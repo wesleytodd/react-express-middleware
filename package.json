@@ -4,15 +4,14 @@
   "description": "Middleware to render a React component on both the server and client",
   "main": "index.js",
   "browser": {
-    "./lib/index": "./lib/browser"
+    "./src/index": "./src/browser"
   },
   "scripts": {
-    "babel": "babel src --out-dir lib",
-    "test": "npm run babel && happiness && mocha --compilers js:babel-register",
+    "test": "happiness && mocha",
     "happiness": "happiness",
-    "prepublish": "npm t",
+    "prepublish": "npm test",
     "postpublish": "git push && git push --tags",
-    "example": "npm run babel && cd ./example && npm start"
+    "example": "cd ./example && npm start"
   },
   "repository": {
     "type": "git",
@@ -32,16 +31,13 @@
   },
   "homepage": "https://github.com/wesleytodd/react-express-middleware#readme",
   "devDependencies": {
-    "babel-cli": "^6.4.5",
-    "babel-preset-es2015": "^6.3.13",
-    "babel-preset-react": "^6.16.0",
-    "babel-register": "^6.18.0",
-    "enzyme": "^2.6.0",
+    "enzyme": "^3.0.0",
+    "enzyme-adapter-react-16": "^1.0.1",
     "happiness": "^7.1.2",
     "mocha": "^3.1.2",
-    "react": "^15.4.1",
-    "react-addons-test-utils": "^15.4.1",
-    "react-dom": "^15.4.1"
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-test-renderer": "^16.0.0"
   },
   "peerDependencies": {
     "react": ">0.14.0",

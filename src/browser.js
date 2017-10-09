@@ -2,8 +2,8 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var setPrototypeOf = require('setprototypeof');
 
-export default function reactExpressMiddlewareGenerator (options = {}) {
-	options.renderMethod = options.renderMethod || ReactDOM.render;
+module.exports = function reactExpressMiddlewareGenerator (options = {}) {
+	options.renderMethod = options.renderMethod || ReactDOM.hydrate || ReactDOM.render;
 
 	// Get the element, defaults to body
 	options.element = (function (el) {
@@ -53,4 +53,4 @@ export default function reactExpressMiddlewareGenerator (options = {}) {
 		};
 		next();
 	};
-}
+};

@@ -1,23 +1,25 @@
 /* global describe, it */
 var React = require('react');
 var assert = require('assert');
-var shallow = require('enzyme').shallow;
+var Enzyme = require('enzyme');
+var Adapter = require('enzyme-adapter-react-16');
+Enzyme.configure({ adapter: new Adapter() });
+var shallow = Enzyme.shallow;
 var reactExpressMiddleware = require('../');
-var serverRenderMiddleware = require('../lib/index.js').default;
-var clientRenderMiddleware = require('../lib/browser.js').default;
+var serverRenderMiddleware = require('../src/index.js');
+var clientRenderMiddleware = require('../src/browser.js');
 
 // A test component
-var Container = React.createClass({
-	displayName: 'Container',
-	render: function () {
+class Container extends React.Component {
+	render () {
 		return (
-			<div>
-				<h1>Basic headline.</h1>
-				<p>Basic paragraph.</p>
-			</div>
+			React.createElement('div', null,
+				React.createElement('h1', null, 'Basic headline.'),
+					React.createElement('p', null, 'Basic paragraph.')
+			)
 		);
 	}
-});
+}
 
 describe('React Express Middleware', function () {
 	it('should return a function', function () {
