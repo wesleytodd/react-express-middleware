@@ -2,7 +2,7 @@
 
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
-[![js-happiness-style](https://img.shields.io/badge/code%20style-happiness-brightgreen.svg)](https://github.com/JedWatson/happiness)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/standard/standard)
 
 This module provides an isomorphic render method for React components in an Express compatible application.
 
@@ -37,36 +37,36 @@ There are two ways to use this middleware's render method. The first is to pass 
 #### Option: Pass a single component
 
 ```javascript
-var router = require('express')();
-var reactExpressMiddleware = require('react-express-middleware');
-var ReactComponent = require('./component.jsx');
+const router = require('express')()
+const reactExpressMiddleware = require('react-express-middleware')
+const ReactComponent = require('./component.jsx')
 
 router.use(reactExpressMiddleware({
   element: 'app'
-}));
+}))
 router.get('/', function (req, res) {
-  res.renderReactComponent(ReactComponent);
-});
+  res.renderReactComponent(ReactComponent)
+})
 ```
 
 #### Option: Pass nested elements
 
 ```javascript
-var router = require('express')();
-var reactExpressMiddleware = require('react-express-middleware');
+const router = require('express')()
+const reactExpressMiddleware = require('react-express-middleware')
 
 router.use(reactExpressMiddleware({
   element: 'app'
-}));
+}))
 router.get('/', function (req, res) {
-  var RenderComponent = (
+  const RenderComponent = (
     <section className="container">
       <h1>Hi {res.locals.name}</h1>
     </section>
-  );
+  )
 
-  res.renderReactComponent(RenderComponent);
-});
+  res.renderReactComponent(RenderComponent)
+})
 ```
 
 #### Passing data to your React components
@@ -78,11 +78,11 @@ your application state to be stored in a single object.  This object, often call
 router.get('/', function (req, res) {
   // Store some data on res.locals which is provided
   // by Express and a pretty common practice
-  res.locals.foo = 'bar';
+  res.locals.foo = 'bar'
 
   // Pass res.locals as your store
-  res.renderReactComponent(ReactComponent, res.locals);
-});
+  res.renderReactComponent(ReactComponent, res.locals)
+})
 ```
 
 If passing a single container, this middleware will do the above by default, so if you don't pass a store you will automagically get all of the
@@ -99,16 +99,16 @@ router.use(reactExpressMiddleware({
   renderMethod: ReactDOM.render, // or ReactDOMServer.renderToString on the server
   template: 'index',  // template passed to express' render
   key: 'content' // the variable exposed to the express template engine with the rendered html string
-)});
+)})
 
 // Overriding options per route
 router.get('/', function () {
   res.locals.reactExpressMiddlewareOptions = {
     template: 'other-template'
-  };
+  }
   // will use the template `other-template.html`
-  res.renderReactComponent(Foo);
-});
+  res.renderReactComponent(Foo)
+})
 
 // Using 'renderReactComponent' method.
 

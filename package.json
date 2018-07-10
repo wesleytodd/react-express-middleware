@@ -7,8 +7,7 @@
     "./src/index": "./src/browser"
   },
   "scripts": {
-    "test": "happiness && mocha",
-    "happiness": "happiness",
+    "test": "standard && mocha",
     "prepublish": "npm test",
     "postpublish": "git push && git push --tags",
     "example": "cd ./example && npm start"
@@ -33,11 +32,11 @@
   "devDependencies": {
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-16": "^1.0.1",
-    "happiness": "^7.1.2",
     "mocha": "^3.1.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "react-test-renderer": "^16.0.0"
+    "react-test-renderer": "^16.0.0",
+    "standard": "^11.0.1"
   },
   "peerDependencies": {
     "react": ">0.14.0",

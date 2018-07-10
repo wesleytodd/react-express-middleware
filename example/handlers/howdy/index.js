@@ -1,12 +1,13 @@
-var Container = require('./container.jsx');
+'use strict'
+const Container = require('./container.jsx')
 
 module.exports = function howdyHandler (req, res) {
-	res.locals.context.example = true;
-	res.locals.context.sampleData = {
-		hi: 'hello',
-		goodbye: 'sad'
-	};
-	res.locals.adjective = 'baffling';
+  res.locals.context.example = true
+  res.locals.context.sampleData = {
+    hi: 'hello',
+    goodbye: 'sad'
+  }
+  res.locals.adjective = 'baffling'
 
-	res.renderReactComponent(Container);
-};
+  res.renderReactComponent(Container)
+}
