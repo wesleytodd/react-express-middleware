@@ -1,14 +1,12 @@
 {
   "name": "react-express-middleware",
-  "version": "3.1.1",
+  "version": "4.0.0-0",
   "description": "Middleware to render a React component on both the server and client",
-  "main": "index.js",
-  "browser": {
-    "./src/index": "./src/browser"
-  },
+  "main": "node.js",
+  "browser": "browser.js",
   "scripts": {
     "test": "standard && mocha",
-    "prepublish": "npm test",
+    "prepublishOnly": "npm t",
     "postpublish": "git push && git push --tags",
     "example": "cd ./example && npm start"
   },
@@ -30,19 +28,16 @@
   },
   "homepage": "https://github.com/wesleytodd/react-express-middleware#readme",
   "devDependencies": {
-    "enzyme": "^3.0.0",
+    "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.0.1",
-    "mocha": "^3.1.2",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "mocha": "^3.5.3",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
     "react-test-renderer": "^16.0.0",
     "standard": "^11.0.1"
   },
   "peerDependencies": {
     "react": ">0.14.0",
     "react-dom": ">0.14.0"
-  },
-  "dependencies": {
-    "setprototypeof": "^1.0.1"
   }
 }

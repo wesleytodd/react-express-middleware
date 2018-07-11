@@ -10,5 +10,4 @@ routes(router)
 router.use(function (err, req, res, next) {
   console.error(err.stack)
 })
-
 router.listen()

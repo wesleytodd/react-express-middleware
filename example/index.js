@@ -10,13 +10,11 @@ app.engine('html', ejs)
 app.set('view engine', 'html')
 app.set('views', './templates')
 
-// Set up routes
-const subApp = express.Router()
-routes(subApp)
-app.use('/', subApp)
-
 // Serve static assets
 app.use('/static', serveStatic('.'))
+
+// Set up routes
+routes(app)
 
 // Start server
 app.listen('1234', function () {

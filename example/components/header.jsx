@@ -1,9 +1,9 @@
 'use strict'
+// vim: set ts=2 sw=2 expandtab:
 const React = require('react')
 
-module.exports = React.createClass({
-  displayName: 'Header',
-  render: function () {
+module.exports = class Header extends React.Component {
+  render () {
     return (
       <div className='page-wrapper'>
         <header>
@@ -11,9 +11,9 @@ module.exports = React.createClass({
         </header>
         {this.props.children}
         <footer>
-          <h2>h2 from 'Header'</h2>
+          <h2>h2 from 'Footer'</h2>
         </footer>
       </div>
     )
   }
-})
+}
