@@ -42,7 +42,14 @@ module.exports = function (defaultRender) {
     } else if (typeof opts.mergeOptions === 'function') {
       mergeOptions = opts.mergeOptions
     } else {
-      mergeOptions = (o, req, res) => Object.assign(o, res.locals.reactExpressMiddlewareOptions || {})
+      mergeOptions = (o, req, res) => {
+        const _o = Object.assign(o, res.locals.reactExpressMiddlewareOptions || {})
+        _o.initialState = Object.assign({}, _o.initialState, {
+          params: req.params,
+          query: req.query
+        })
+        return _o
+      }
     }
 
     return function (req, res, next) {
