@@ -45,9 +45,9 @@ module.exports = function (defaultRender) {
       mergeOptions = (o, req, res) => {
         const _o = Object.assign(o, res.locals.reactExpressMiddlewareOptions || {})
         _o.initialState = Object.assign({}, _o.initialState, {
-          params: req.params,
-          query: req.query
-        })
+          $params: req.params,
+          $query: req.query
+        }, res.locals)
         return _o
       }
     }
