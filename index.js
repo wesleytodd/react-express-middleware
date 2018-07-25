@@ -92,11 +92,11 @@ module.exports = function (defaultRender) {
         store = o.createStore(reducer, Object.assign({}, o.initialState, res.locals))
 
         // Subscribe to the store for renders
-        store.subscribe(render)
+        const unsub = store.subscribe(render)
 
         // Init action will trigger a render, so return if it is not disabled
         if (o.storeInitAction !== false) {
-          store.dispatch({ type: o.storeInitAction })
+          store.dispatch({ type: o.storeInitAction, unsubscribe: unsub })
           return
         }
       }
