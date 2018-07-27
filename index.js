@@ -2,6 +2,16 @@
 // vim: set ts=2 sw=2 expandtab:
 const React = require('react')
 
+// An error boundry wrapper
+const errorWrap = React.createFactory(class ErrorWrap extends React.Component {
+  componentDidCatch (err, info) {
+    this.props.onError(err, info)
+  }
+  render () {
+    return this.props.children
+  }
+})
+
 module.exports = function (defaultRender) {
   return function storeMiddleware (Component, opts = {}) {
     // If not passed a component, throw
@@ -74,17 +84,50 @@ module.exports = function (defaultRender) {
         _c = React.createFactory(_c)
       }
 
+      let firstRendered = false
+      let firstCalled = false
+      let hasErrored = false
       function render () {
+        // Wait until the first render succeeds to rerender,
+        // this precents weird error behavior if the first render
+        // fails/errors
+        if (firstCalled && !firstRendered) {
+          return
+        }
+        firstCalled = true
+
         const state = o.createStore === false || o.storeDispatchMethod === false
           ? Object.assign({}, o.initialState, res.locals, (store && store.getState()) || {})
           : Object.assign({ [o.storeDispatchMethod]: store.dispatch }, store.getState())
 
-        o.renderMethod(_c(state), o, req, res, function (err) {
+        function onRendered () {
+          // Recall render on first render, only once
+          if (!firstRendered && !hasErrored) {
+            firstRendered = true
+            return render()
+          }
+
+          if (hasErrored && !o.callNext) {
+            throw hasErrored
+          }
+
           if (!o.callNext) {
             return
           }
-          next(err)
+
+          next(hasErrored || null)
+        }
+
+        // Wrap in an error boundry
+        const _e = errorWrap({
+          children: _c(state),
+          onError: (err) => {
+            hasErrored = err
+          }
         })
+
+        // Call the actual render
+        o.renderMethod(_e, o, req, res, onRendered)
       }
 
       // Setup the store?
