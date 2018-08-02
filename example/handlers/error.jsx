@@ -8,7 +8,7 @@ module.exports = class FourOhFour extends React.Component {
       <Header>
         <h2>Error {this.props.$error.code || this.props.$error.name}</h2>
         <p>{this.props.$error.message}</p>
-        <a href="/">Back</a>
+        <a href='/'>Back</a>
       </Header>
     )
   }

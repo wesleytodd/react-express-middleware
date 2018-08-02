@@ -75,7 +75,7 @@ module.exports = function (defaultRender) {
         let hasErrored = false
         const comp = errorWrap({
           children: _c(res.locals),
-          onError: (err) => hasErrored = err
+          onError: (err) => { hasErrored = err }
         })
 
         // Call the actual render (different in browser and node)

@@ -4,6 +4,10 @@ const React = require('react')
 const Header = require('../components/header.jsx')
 
 module.exports = class Adieu extends React.Component {
+  constructor (props) {
+    super(props)
+    this.onNameChange = this.onNameChange.bind(this)
+  }
   render () {
     return (
       <Header>
@@ -26,7 +30,7 @@ module.exports = class Adieu extends React.Component {
     return state
   }
 
-  onNameChange = (e) => {
+  onNameChange (e) {
     this.props.$dispatch({
       type: 'changeName',
       name: e.target.value

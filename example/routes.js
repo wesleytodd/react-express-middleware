@@ -7,7 +7,7 @@ const sharedContext = require('shared-context')
 
 /* View handlers */
 const Howdy = require('./handlers/howdy.jsx')
-const Adieu = require('./handlers/adieu.jsx')
+// const Adieu = require('./handlers/adieu.jsx')
 const FourOhFour = require('./handlers/404.jsx')
 const BadView = require('./handlers/bad.jsx')
 const ErrorView = require('./handlers/error.jsx')
