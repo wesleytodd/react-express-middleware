@@ -8,7 +8,7 @@
     "test": "standard && mocha",
     "prepublishOnly": "npm t",
     "postpublish": "git push && git push --tags",
-    "example": "cd ./example && npm start"
+    "example": "cd ./example && npm i && npm start"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,8 @@
   },
   "homepage": "https://github.com/wesleytodd/react-express-middleware#readme",
   "devDependencies": {
+    "@wesleytodd/state-container": "0.0.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.0.1",
     "mocha": "^3.5.3",

@@ -1,27 +1,50 @@
 'use strict'
 // vim: set ts=2 sw=2 expandtab:
-/* Context + isomorphic rendering */
-const sharedContext = require('shared-context')
 const reactExpressMiddleware = require('../')
 
+/* Context + isomorphic rendering */
+const sharedContext = require('shared-context')
+
 /* View handlers */
-const howdy = require('./handlers/howdy.jsx')
-const adieu = require('./handlers/adieu.jsx')
+const Howdy = require('./handlers/howdy.jsx')
+const Adieu = require('./handlers/adieu.jsx')
+const FourOhFour = require('./handlers/404.jsx')
+const BadView = require('./handlers/bad.jsx')
+const ErrorView = require('./handlers/error.jsx')
 
 module.exports = function (app) {
+  app.get('/', (req, res) => res.redirect('/howdy/wes'))
+
+  // Example for sharing data from the backend to the frontend in SSR apps
   app.use(sharedContext())
-  app.get('/', function (req, res) {
-    res.redirect('/howdy/wes')
-  })
 
   // Setup some data in a middelware to be used in rendering
   app.get('/:salutation/:name', function (req, res, next) {
     res.locals.name = req.params.name
-    res.locals.adjective = 'baffling'
+
+    // Added to the context shared from the backend,
+    // this could be loaded from an api on the backend and then skipped on the frontend
+    res.locals.context.adjective = res.locals.context.adjective || 'baffling'
     next()
   })
 
-  // Render the views
-  app.get('/howdy/:name', reactExpressMiddleware(howdy))
-  app.get('/adieu/:name', reactExpressMiddleware(adieu))
+  //
+  // Most basic example
+  //
+  app.get('/howdy/:name', reactExpressMiddleware(Howdy))
+
+  //
+  // Hook up a state container (think Redux)
+  //
+  // @TODO
+  // app.get('/adieu/:name', reactExpressMiddlewareWithStateContainer(Adieu))
+
+  //
+  // Error handling
+  //
+  app.get('/bad', reactExpressMiddleware(BadView))
+  app.use(reactExpressMiddleware(FourOhFour))
+  app.use(reactExpressMiddleware(ErrorView, {
+    handleErrors: true
+  }))
 }
