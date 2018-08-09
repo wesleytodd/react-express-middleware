@@ -6,6 +6,7 @@ const rem = require('./index')
 module.exports = rem((component, opts, req, res, done) => {
   ReactDOM.hydrate(component, getEl(opts), done)
 })
+module.exports.hydrate = module.exports
 
 module.exports.render = rem((component, opts, req, res, done) => {
   ReactDOM.render(component, getEl(opts), done)
