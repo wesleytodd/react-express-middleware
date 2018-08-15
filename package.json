@@ -34,12 +34,15 @@
     "enzyme-adapter-react-16": "^1.0.1",
     "mocha": "^3.5.3",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1",
+    "react-dom": "^16.4.2",
     "react-test-renderer": "^16.0.0",
     "standard": "^11.0.1"
   },
   "peerDependencies": {
     "react": ">0.14.0",
     "react-dom": ">0.14.0"
+  },
+  "dependencies": {
+    "react-is": "^16.4.2"
   }
 }
