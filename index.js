@@ -11,18 +11,19 @@ try {
 module.exports = function (defaultRender) {
   return function reactRenderMiddleware (Component, opts = {}) {
     // First arg was a component, not options
-    if (!isValidElementType(Component)) {
+    if (!isValidComponent(Component)) {
       opts = Component || {}
       Component = opts.Component
 
       // If not passed a component, throw
-      if (!isValidElementType(Component)) {
+      if (!isValidComponent(Component)) {
         throw new TypeError('A valid component is required')
       }
     }
 
     // Default options
     const React = opts.React || _React
+    const ReactDOM = opts.ReactDOM
     const initialState = opts.initialState || Component.initialState || {}
     const el = opts.el || '#app'
     const key = opts.key || 'content'
@@ -40,18 +41,35 @@ module.exports = function (defaultRender) {
       throw new TypeError('React is required to run this middleware')
     }
 
+    // patch createFactory for compatibility with Preact
+    // https://github.com/developit/preact-compat/blob/master/src/index.js#L232-L234
+    const createFactory = React.createFactory || ((type) => {
+      return (attrs) => {
+        return React.createElement(type, attrs, attrs.children)
+      }
+    })
+
     // An error boundry wrapper
-    const errorWrap = React.createFactory(class ErrorWrap extends React.Component {
+    const errorWrap = createFactory(class ErrorWrap extends React.Component {
       componentDidCatch (err, info) {
         this.props.onError(err, info)
       }
       render () {
-        return this.props.children
+        if (Array.isArray(this.props.children)) {
+          if (this.props.children.length > 1) {
+            return this.props.children
+          } else {
+            return this.props.children[0]
+          }
+        } else {
+          return this.props.children
+        }
       }
     })
 
     function mw (req, res, next) {
       const o = {
+        ReactDOM,
         Component,
         el,
         renderMethod,
@@ -77,14 +95,14 @@ module.exports = function (defaultRender) {
       function render (state, done) {
         // Make sure the component is renderable
         let _c = o.Component
-        if (!_c.hasOwnProperty('$$typeof')) {
-          _c = React.createFactory(_c)
+        if (!_c.hasOwnProperty('$$typeof') && typeof _c !== 'function') {
+          _c = createFactory(_c)
         }
 
         // Wrap in an error boundry
         let hasErrored = false
         const comp = errorWrap({
-          children: _c(res.locals),
+          children: [_c(res.locals)],
           onError: (err) => { hasErrored = err }
         })
 
@@ -105,4 +123,8 @@ module.exports = function (defaultRender) {
 
     return mw
   }
+}
+
+function isValidComponent (Component) {
+  return isValidElementType(Component) || (Component.nodeName && Object.getPrototypeOf(Component).constructor.name === 'VNode')
 }
