@@ -23,6 +23,8 @@ module.exports = function (defaultRender) {
 
     // Default options
     const React = opts.React || _React
+    const ReactDOM = opts.ReactDOM
+    const ReactDOMServer = opts.ReactDOMServer
     const initialState = opts.initialState || Component.initialState || {}
     const el = opts.el || '#app'
     const key = opts.key || 'content'
@@ -52,6 +54,8 @@ module.exports = function (defaultRender) {
 
     function mw (req, res, next) {
       const o = {
+        ReactDOM,
+        ReactDOMServer,
         Component,
         el,
         renderMethod,
