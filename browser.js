@@ -5,7 +5,7 @@ const rem = require('./index')
 // Allow for overriding your own version of react-dom
 let __ReactDOM
 try {
-  __ReactDOM = require('react-' + 'dom')
+  __ReactDOM = require('react-dom')
 } catch (e) { }
 
 module.exports = rem((component, opts, req, res, done) => {
